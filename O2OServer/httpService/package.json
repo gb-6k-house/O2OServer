@@ -6,15 +6,19 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "bytes": "^2.3.0",
-    "content-type": "^1.0.1",
-    "cookie-parser": "~1.3.5",
-    "debug": "~2.2.0",
-    "express": "~4.13.1",
+    "body-parser": "^1.15.2",
+    "bytes": "^2.4.0",
+    "content-type": "^1.0.2",
+    "cookie-parser": "^1.3.5",
+    "debug": "^2.2.0",
+    "dnode": "^1.2.2",
+    "express": "^4.13.4",
     "iconv-lite": "^0.4.13",
+    "moment": "^2.13.0",
+    "morgan": "^1.7.0",
     "on-finished": "^2.3.0",
-    "raw-body": "^2.1.6",
+    "raw-body": "^2.1.7",
     "should": "^8.3.0",
-    "type-is": "^1.6.12"
+    "type-is": "^1.6.13"
   }
 }

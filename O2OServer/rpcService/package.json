@@ -10,6 +10,8 @@
     "dnode": "^1.2.2",
     "express": "~4.13.1",
     "jade": "~1.11.0",
+    "log4js": "^0.6.37",
+    "moment": "^2.13.0",
     "morgan": "~1.6.1",
     "node-qiniu": "^6.2.0",
     "node-uuid": "^1.4.7",
@@ -22,6 +24,7 @@
     "node-weixin-settings": "^0.2.0",
     "qiniu": "^6.1.9",
     "qr-image": "^3.1.0",
+    "redis": "^2.6.2",
     "serve-favicon": "~2.3.0"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "name": "public",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": ""
+  },
+  "dependencies": {
+    "crypto": "0.0.3",
+    "log4js": "^0.6.37",
+    "moment": "^2.13.0",
+    "mysql": "^2.11.1"
+  }
+}

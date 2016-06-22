@@ -4,11 +4,11 @@
 exports.debug = true;
 //exports.host = '114.215.149.97'
 
-//exports.host = 'www.uscreen.online';
+exports.host = 'www.uscreen.online';
 
-exports.host = '127.0.0.1';
+//exports.host = '127.0.0.1';
 
-exports.port = 3000;
+exports.port = 80;
 //rpc 服务地址
 exports.rpchost = {'port': 6002, 'ip': '127.0.0.1'};
 exports.wxrpchost = {'port': 6003, 'ip': '127.0.0.1'};
