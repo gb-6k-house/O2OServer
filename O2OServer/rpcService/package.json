@@ -1,0 +1,27 @@
+{
+  "name": "rpcService",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "debug": "~2.2.0",
+    "dnode": "^1.2.2",
+    "express": "~4.13.1",
+    "jade": "~1.11.0",
+    "morgan": "~1.6.1",
+    "node-qiniu": "^6.2.0",
+    "node-uuid": "^1.4.7",
+    "node-weixin-api": "^0.4.3",
+    "node-weixin-auth": "^0.5.0",
+    "node-weixin-config": "^0.3.0",
+    "node-weixin-jssdk": "^0.4.0",
+    "node-weixin-oauth": "^0.3.0",
+    "node-weixin-session": "0.0.2",
+    "node-weixin-settings": "^0.2.0",
+    "qiniu": "^6.1.9",
+    "qr-image": "^3.1.0",
+    "serve-favicon": "~2.3.0"
+  }
+}

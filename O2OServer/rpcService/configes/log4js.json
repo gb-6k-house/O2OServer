@@ -1,0 +1,22 @@
+{
+  "appenders": [
+    {"type": "console", "category": "console"},
+    {
+      "type": "dateFile",
+      "filename": "./logs/rpc",
+      "pattern": "_yyyyMMdd.log",
+      "absolute": false,
+      "alwaysIncludePattern": true,
+      "category": "log4js"
+    } ,
+    {
+      "type": "dateFile",
+      "filename": "./logs/rpc",
+      "pattern": "_yyyyMMdd.err",
+      "absolute": false,
+      "alwaysIncludePattern": true,
+      "category": "logErr"
+    }],
+  "replaceConsole": true,
+  "levels":{  "console": "DEBUG","log4js": "DEBUG","logErr":"ERROR"}
+}

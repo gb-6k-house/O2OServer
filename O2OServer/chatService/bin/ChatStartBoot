@@ -1,0 +1,178 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+var logger =new require('../../public/utils/logger').init( __dirname +"/../configes/log4js.json");
+process.logger = logger;
+var debug = require('debug')('untitled:server');
+var http = require('http');
+var confige = require('./../configes/confige');
+var fs = require('fs');
+var moment = require('moment');
+var HashMap = require('hashmap');
+
+var mt =require('../models/messageType');
+
+
+var server = http.createServer(handler);
+var io = require('socket.io').listen(server);
+var sockets = new HashMap();
+process.sockets = sockets;
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || confige.port);
+
+/**
+ * Create HTTP server.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+var redis = require('redis');
+
+require('../controllers/notification');
+
+function handler (req, res) {
+  fs.readFile(__dirname + '../views/index.html',
+      function (err, data) {
+        if (err) {
+          res.writeHead(500);
+          return res.end('Error loading index.html');
+        }
+
+        res.writeHead(200);
+        res.end(data);
+      });
+}
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+
+
+//
+//io.set('transports', ['websocket', 'xhr-polling']);000000
+//io.set('heartbeat timeout', 5 * 60)
+//io.set('heartbeat interval', 4 * 60)
+//io.set('close timeout', 1 * 30);
+//io.set("log level", 1)
+//io.set("browser client", false)
+//io.set("browser client cache", false)
+//io.set("browser client cache", false)
+
+/*
+ 定时扫描所有链接,time单位毫秒,如果链接超过outTime 单位毫秒断开链接
+ * */
+function scanSocket(time,outTime){
+  setInterval(function(){
+    var now = new Date();
+    sockets.forEach(function(value, key) {
+      var socket = value;
+      var offTime = now.getTime()-socket.ackTime.getTime();
+      if(offTime >= outTime){
+        logger.info('IMEI:' + socket.IMEI + '失去心跳 即将断开链接');
+        socket.disconnect();
+      }
+    });
+  },time);
+}
+
+
+
+
+
+var routerEngine = require('../routes/socketRouterEngine');
+var router = require('../routes/routers');
+//配置路由信息
+router.confige();
+//启动定时器,扫描所有的链接,,
+/*
+ 心跳机制,在socket实体中包含一个时间的 ackTime 字段，每当客户端来了心跳，服务端就会将这个字段更新一次。
+ 然后服务端只需要开一个timer，每隔20秒钟巡查一次实体中的这个字段和当前时间的差值，即可来判断设备是否掉线。
+ */
+var scanTask = scanSocket(20000,50000);
+io.sockets.on('connection', function (socket) {
+
+  var address = socket.handshake.address;
+  console.log(Date() + " New connection from " + address);
+
+  //记录用户的心跳时间
+  socket.ackTime = new Date();
+
+  routerEngine.router(socket);
+})
+
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+      ? 'Pipe ' + port
+      : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+//我们可以uncaughtException来全局捕获未捕获的Error，同时你还可以将此函数的调用栈打印出来，捕获之后可以有效防止node进程退出
+//我们也可以用node-forever 提供了守护的功能和LOG日志记录功能。
+process.on('uncaughtException', function (err) {
+  //打印出错误
+  //console.log(err);
+  //打印出错误的调用栈方便调试
+  console.log(err.stack);
+});

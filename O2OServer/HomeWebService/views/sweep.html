@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>验证通过</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link href="/stylesheets/css.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+				<div>
+						<img src="/images/dimension.png" class="imageHead" id="image_head">
+						<p class="imageName" id="name">小五</p>
+						<p class="imageAddress" id="city">湖南长沙</p>
+				</div>
+				
+				<div style="text-align: center; ">
+						<img  src="/images/image_success.png"  class="imagesSuccess">
+						<p class="successValidate" >验证通过,请放行</p>
+					<p class="successValidate" id="date">2016.03.25 11:26</p>
+				</div>
+				<script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
+				<script type="text/javascript" language="javascript">
+					function GetQueryString(name) {
+						var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+						var r = window.location.search.substr(1).match(reg);
+						if (r != null)
+						return unescape(r[2]);
+						return null;
+				}
+					$('#name').text(decodeURIComponent(GetQueryString("hostName")));
+					$('#city').text(decodeURIComponent(GetQueryString("city")));
+					$('#date').text(decodeURIComponent(GetQueryString("createDate")));
+					$("#image_head").attr("src", GetQueryString("hostHeadUrl"));
+				</script>
+	</body>
+
+
+</html>

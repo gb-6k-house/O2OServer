@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>门禁</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link href="/stylesheets/css.css" rel="stylesheet" type="text/css"/>
+    <style>
+        body {
+            background-image: url(/images/zhiye.png);
+            height: 100%;
+            widows: 100%;
+        }
+
+        /*html,body {
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            line-height: 1.5;
+        }*/
+        * {
+            margin: 0px;
+        }
+
+        /*屏蔽背景层*/
+        #divMsgBack {
+            display: none;
+            position: fixed;
+            _position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            background: -moz-radial-gradient(50% 50%, #fff, #000);
+            /*gradient for firefox*/
+            background: -webkit-radial-gradient(50% 50%, #fff, #000);
+            /*new gradient for webkit */
+            background: -webkit-gradient(radial, 0 50%, 0 50%, from(#fff), to(#000)
+            ); /*the old grandient for webkit*/
+            opacity: 0.5;
+            filter: Alpha(opacity=50);
+            _display: block;
+            _left: -10000px;
+            z-index: 9999;
+        }
+
+        /*弹出层*/
+        #divMsg {
+            display: none;
+            position: fixed;
+            border: solid 5px gray;
+            background-color: white;
+            top: 40%;
+            left: 50%;
+            width: 200px;
+            height: 200px;
+            margin-left: -120px;
+            margin-top: -150px;
+            padding: 10px;
+            line-height: 21px;
+            border-radius: 15px;
+            -moz-border-radius: 15px;
+            box-shadow: 0 5px 27px rgba(0, 0, 0, 0.3);
+            -webkit-box-shadow: 0 5px 27px rgba(0, 0, 0, 0.3);
+            -moz-box-shadow: 0 5px 27px rgba(0, 0, 0, 0.3);
+            _position: absolute;
+            _display: block;
+            _left: -10000px;
+            z-index: 10000;
+        }
+
+        /*关闭按钮*/
+        #divMsg #aClose {
+            font-family: Tahoma;
+            border: solid 2px #ccc;
+            padding: 0px 5px;
+            text-decoration: none;
+            font-size: 12px;
+            color: blue;
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            line-height: 14px;
+            height: 14px;
+            width: 7px;
+            border-radius: 14px;
+            -moz-border-radius: 14px;
+            background-color: white;
+        }
+
+        #divMsg #aClose:hover {
+            border: solid 2px red;
+            color: red;
+        }
+
+        /*设置显示*/
+        #msgBody #divMsgBack {
+            display: block;
+            _left: 0px;
+        }
+
+        #msgBody #divMsg {
+            display: block;
+            _left: 50%;
+        }
+
+        #msgBody {
+            _overflow: hidden;
+        }
+    </style>
+
+</head>
+<body>
+<div class="gain_box">
+    <input type="button" value="获取门禁" class="gradient_red"
+           onclick="sendFeedback()"/>
+
+    <input type="button" value="识别门禁" class="gradient_red"
+           id="checkPassport"/>
+</div>
+
+<div id="divMsgBack"></div>
+
+<div id="divMsg">
+    <a id="aClose" href="javascript:;" onclick="document.body.id = '';">X</a>
+    <div class="image_123">
+        <img src="/images/dimension.png" class="imageP">
+    </div>
+    <br>
+    请将此凭证分享给您的好友
+</div>
+
+<script type="text/javascript"
+        src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js">
+</script>
+<script type="text/javascript" src="/javascripts/sha.js">
+</script>
+<script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js">
+</script>
+<script type="text/javascript" src="/javascripts/index.js">
+</script>
+<script type="text/javascript" src="/javascripts/txbb_ios.js">
+
+</script>
+
+<script type="text/javascript" src="/javascripts/public.js"></script>
+
+
+<script>
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return unescape(r[2]);
+        return null;
+    }
+    var imageUrl;
+    //获取门禁
+    function sendFeedback() {
+        $('.image').addClass('is-visible');
+        var data = {
+            code: GetQueryString("code")
+        };
+        /*	  var data = GetQueryString("code");*/
+        var urladdress = getServiceUrl() + '/api-neighborhood/getPassport'
+        $.ajax({
+            type: "POST",
+
+            dataType: "json",
+            url: urladdress,
+            contentType: "text/plain;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (obj) {
+                if (obj.code === 0) {
+                    imageUrl = obj.data.passport;
+                    $(".imageP").attr("src", imageUrl);
+                    document.body.id = 'msgBody';
+                    var shareData = {};
+                    var shareobj = {
+                        hostTitle: encodeURIComponent(obj.data.shareTitle),
+                        hostHeadUrl: obj.data.shareImgUrl,
+                        createDesc: encodeURIComponent(obj.data.shareDesc)
+                    }
+                    shareData.title = obj.data.shareTitle;
+                    shareData.desc = obj.data.shareDesc;
+                    shareData.link = getRootPath()  +"/reveal.html?"+$.param(shareobj);
+                    "/sweep.html" + $.param(obj);
+                    shareData.imgUrl = obj.data.shareImgUrl;
+                    //Data.dataUrl = "";
+                    shareMessage(shareData);
+                } else if (obj.code === 50003) {
+                    alert(obj.msg);
+                    window.location.href = "accessSysHome.html"
+                }
+            },
+            error: function (e) {
+                alert('操作失败,稍后再试');
+            }
+        })
+
+    }
+</script>
+
+</body>
+
+
+</html>

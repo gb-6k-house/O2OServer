@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>展示二维码</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+		<meta http-equiv="description" content="this is my page">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link href="/stylesheets/css.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+			<div style="text-align: center; ">
+				<p class="title_reveal" id="title">尚格名城小区刘凯住户的通行证</p>
+				<img src="/images/dimension.png" class=image_reveal id="image_head">
+			</div>
+				<p style="margin-top: 25%;margin-left: 5%;margin-right: 5%" id="createDesc">温馨提示：请展示二维码通行证给门口保安进行验证,验证通过之后才能进入</p>
+				
+				<script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
+			<script type="text/javascript" src="/javascripts/public.js"></script>
+
+				<script type="text/javascript" language="javascript">
+
+				$('#title').text(decodeURIComponent(GetQueryString("hostTitle")));
+				$('#createDesc').text(decodeURIComponent(GetQueryString("createDesc")));
+				$("#image_head").attr("src", GetQueryString("hostHeadUrl"));
+				</script>
+	</body>
+
+
+</html>

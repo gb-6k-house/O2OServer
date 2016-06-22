@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>门禁系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link href="/stylesheets/css.css" rel="stylesheet" type="text/css"/>
+
+    <style type="text/css">
+        body {
+            background-image: url(/images/start.png);
+
+        }
+    </style>
+
+
+</head>
+<body>
+
+<div class="start">
+    <input type="button" value="点击进入门禁系统" class="gradient_red" id = "doIn"/>
+</div>
+<script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/javascripts/public.js"></script>
+
+<script>
+    $(function () {
+        $("#doIn").click(function () {
+            sendFeedback();
+        });
+    })
+</script>
+<script>
+
+</script>
+<script>
+
+    //授权
+    function sendFeedback() {
+        // var data = {"url": 'http:b2uvchmiav.proxy.qqbrowser.cc/users/accessControl.html'}
+        var data = {"url": getRootPath() + '/accessControl.html'}
+
+      //  var urladdress = 'http://192.168.0.192:3000/weixin/pageAuthorize';
+         var urladdress = getServiceUrl() +'/api-weixin/pageAuthorize';
+
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: urladdress,
+            contentType: "text/plain;charset=UTF-8",
+            data: JSON.stringify(data),
+            success: function (obj) {
+                if (obj.code === 0) {
+                    var oauthUrl = obj.data.oauthUrl;
+                   // open(oauthUrl);
+                    //alert('abc');
+                    location.href = obj.data.oauthUrl;
+                   //window.location.href="shttps://www.baidu.com?"
+                    /* $.ajax({
+                     type: "get",
+                     url: oauthUrl
+                     });*/
+                }
+
+
+            },
+            error:function(e){
+                alert('操作失败,稍后再试');
+            }
+
+        })
+    }
+</script>
+
+</body>
+
+</html>
