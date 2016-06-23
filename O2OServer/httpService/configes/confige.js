@@ -8,7 +8,7 @@ exports.host = 'www.uscreen.online';
 
 //exports.host = '127.0.0.1';
 
-exports.port = 80;
+exports.port = 3000;
 //rpc 服务地址
 exports.rpchost = {'port': 6002, 'ip': '127.0.0.1'};
 exports.wxrpchost = {'port': 6003, 'ip': '127.0.0.1'};

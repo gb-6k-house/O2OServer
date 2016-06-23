@@ -11,7 +11,7 @@ function Base(){
 Base.request=function(method, path, data){
     var opt = {
         host:confige.host,
-        port:confige.port,
+        port:80,
         method:method,
         path:path,
         headers:{
