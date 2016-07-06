@@ -16,6 +16,9 @@ router.get('/sweep.html', function(req, res, next) {
 router.all('/accessSysHome.html', function(req, res, next) {
   res.render('accessSysHome.html', {});
 });
+router.all('/recharge.html', function(req, res, next) {
+  res.render('recharge.html', {});
+});
 
 router.all('/accessControl.html', passportHttp.passportManager);
 //

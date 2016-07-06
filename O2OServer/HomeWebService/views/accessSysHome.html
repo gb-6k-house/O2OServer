@@ -21,7 +21,10 @@
 
 <div class="start">
     <input type="button" value="点击进入门禁系统" class="gradient_red" id = "doIn"/>
+    <input type="button" value="点击进入充值系统" class="gradient_blue" id="recharge"/>
 </div>
+
+
 <script type="text/javascript" src="/javascripts/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="/javascripts/public.js"></script>
 
@@ -33,7 +36,14 @@
     })
 </script>
 <script>
-
+    $(function () {
+        $("#recharge").click(function () {
+           window.location.href = "recharge.html";
+           // window.location.href = "reveal.html";
+        });
+    })
+</script>
+<script>
 </script>
 <script>
 

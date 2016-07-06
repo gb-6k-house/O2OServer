@@ -67,6 +67,19 @@ background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0,
 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#febaa0', endColorstr='#fc9490', GradientType='0'); /* IE*/ 
 -webkit-transition: width .6s ease;  transition: width .6s ease;}
 
+/*蓝色渐变*/
+.gradient_blue{ background-image: -moz-linear-gradient(left, #4858fe, #81d9fd); /* Firefox */
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #4858fe), color-stop(1, #81d9fd)); /* Saf4+, Chrome */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fea753', endColorstr='#fd5341', GradientType='0'); /* IE*/
+  -webkit-transition: width .6s ease;  transition: width .6s ease;}
+.gradient_blue:hover{ background-image: -moz-linear-gradient(left, #73c5fe, #498efc); /* Firefox */
+  background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0, #73c5fe), color-stop(1, #498efc)); /* Saf4+, Chrome */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#febaa0', endColorstr='#fc9490', GradientType='0'); /* IE*/
+  -webkit-transition: width .6s ease;  transition: width .6s ease;}
+
+
+
+
 .btn { display: inline-block; padding:8px 25px; color: #fff; cursor: pointer; text-align: center; border-radius:25px;}
 .btn.green {background: #27d268; }
 
@@ -146,6 +159,17 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#febaa0', endC
 .start h2{font-size:1.142em}
 .start textarea{width:96%; padding:2%; margin-top:50px; color:#828282; min-height:12em; border:none; background:#f5f5f5}
 .start input{width:88%; margin:8% auto; display:block; border:none; font-size:1.142em; padding:20px 0; color:#FFF; border-radius:3px;}
+
+
+.play_recharge{margin-top:60px;text-align: center}
+.play_recharge span{
+  float: left;
+  width:50%;}
+.play_recharge h2{font-size:1.142em}
+.play_recharge textarea{width:56%; padding:2%; margin-top:50px; color:#828282; min-height:12em; border:none; background:#f5f5f5}
+.play_recharge input{width:50%; margin:8% ; border:none; font-size:1.142em; padding:20px 0; color:#FFF; border-radius:3px;}
+
+
 
 
 
